@@ -7,7 +7,6 @@ import {
   LabelName,
   LabelPhone,
 } from './StylesJSX/FormStyles';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { addContact } from 'store/contactsSlise';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { InputSearch, LabelSearch } from './StylesJSX/FormStyles';
-
 import { useDispatch } from 'react-redux';
 import { searchContact } from 'store/contactsSlise';
 

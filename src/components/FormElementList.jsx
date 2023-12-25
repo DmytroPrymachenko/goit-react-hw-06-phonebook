@@ -1,12 +1,10 @@
 import React from 'react';
-
 import {
   DeleteBtn,
   ElementDiv,
   ElementUl,
 } from './StylesJSX/FormElementListStyles';
 import { ElementsLi } from './StylesJSX/ElementStyles';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'store/contactsSlise';
 
