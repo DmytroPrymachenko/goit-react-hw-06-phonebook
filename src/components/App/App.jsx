@@ -1,76 +1,9 @@
-import { nanoid } from 'nanoid';
-import { Form } from './Form';
-import FormElementList from './FormElementList';
-import { useEffect, useState } from 'react';
-import { FormDiv, FormElementDiv } from './StylesJSX/FormElementListStyles';
-import Search from './Search';
+import { Form } from '../Form';
+import { FormElementList } from '../FormElementList';
+import { FormDiv, FormElementDiv } from '../StylesJSX/FormElementListStyles';
+import Search from '../Search';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ]);
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    setContacts(loadToLS('CONTACTS'));
-  }, []);
-
-  useEffect(() => {
-    saveToLS('CONTACTS', contacts);
-  }, [contacts]);
-
-  // LS
-  const saveToLS = (key, value) => {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const loadToLS = key => {
-    try {
-      return JSON.parse(localStorage.getItem(key)) || [];
-    } catch (error) {
-      console.log(error.message);
-      return localStorage.getItem(key);
-    }
-  };
-  // Ls
-
-  const handleDelete = contactId => {
-    setContacts(prevContacts =>
-      prevContacts.filter(contact => contact.id !== contactId)
-    );
-  };
-
-  const onChangeSearch = e => {
-    setFilter(e.target.value);
-  };
-
-  const filterContacts = () => {
-    return contacts.filter(el =>
-      el.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
-
-  const contactsState = contact => {
-    const newContact = {
-      ...contact,
-      id: nanoid(),
-    };
-    if (
-      contacts.some(el => el.name.toLowerCase() === contact.name.toLowerCase())
-    ) {
-      alert(`${contact.name} is already in contacts`);
-    } else {
-      setContacts(prev => [...prev, newContact]);
-    }
-  };
-
   return (
     <FormDiv
       style={{
@@ -83,9 +16,9 @@ export const App = () => {
       }}
     >
       <FormElementDiv>
-        <Form contactsState={contactsState} />
-        <Search onSearch={onChangeSearch} valueSearch={filter} />
-        <FormElementList contacts={filterContacts()} onDelete={handleDelete} />
+        <Form />
+        <Search />
+        <FormElementList />
       </FormElementDiv>
     </FormDiv>
   );

@@ -8,9 +8,16 @@ import {
   LabelPhone,
 } from './StylesJSX/FormStyles';
 
-export const Form = ({ contactsState }) => {
+import { useDispatch, useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
+import { addContact } from 'store/contactsSlise';
+
+export const Form = () => {
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
+
+  const { contacts } = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
 
   const onChangeState = e => {
     const { value, name } = e.target;
@@ -23,9 +30,20 @@ export const Form = ({ contactsState }) => {
 
   const onSubmitForm = e => {
     e.preventDefault();
-    contactsState({ name, number });
-    setName('');
-    setNumber('');
+    let isExists = contacts.some(el => el.name === name);
+
+    const newContact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+    if (isExists) {
+      alert(`${name} is already in contacts`);
+    } else {
+      dispatch(addContact(newContact));
+      setName('');
+      setNumber('');
+    }
   };
 
   return (

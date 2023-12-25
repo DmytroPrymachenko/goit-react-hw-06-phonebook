@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { InputSearch, LabelSearch } from './StylesJSX/FormStyles';
 
-export default class Search extends Component {
-  render() {
-    return (
-      <div>
-        <LabelSearch htmlFor="search">Find contact:</LabelSearch>
-        <InputSearch
-          onChange={this.props.onSearch}
-          id="search"
-          name="search"
-          type="text"
-          value={this.props.valueSearch}
-        />
-      </div>
-    );
+import { useDispatch } from 'react-redux';
+import { searchContact } from 'store/contactsSlise';
+
+const Search = () => {
+  const dispatch = useDispatch();
+
+  function handleChange({ target: { value } }) {
+    dispatch(searchContact(value));
   }
-}
+  return (
+    <div>
+      <LabelSearch htmlFor="search">Find contact:</LabelSearch>
+      <InputSearch onChange={handleChange} type="text" id="search" />
+    </div>
+  );
+};
+export default Search;

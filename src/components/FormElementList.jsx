@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
   DeleteBtn,
@@ -7,24 +7,39 @@ import {
 } from './StylesJSX/FormElementListStyles';
 import { ElementsLi } from './StylesJSX/ElementStyles';
 
-export default class FormElementList extends Component {
-  render() {
-    const { contacts } = this.props;
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from 'store/contactsSlise';
 
-    return (
-      <ElementDiv>
-        <ElementUl>
-          {contacts.map(({ number, name, id }) => (
-            <ElementsLi key={id}>
-              <p>{number}</p>
-              <p>{name}</p>
-              <DeleteBtn onClick={() => this.props.onDelete(id)}>
-                Delate
-              </DeleteBtn>
-            </ElementsLi>
-          ))}
-        </ElementUl>
-      </ElementDiv>
+export const FormElementList = () => {
+  const { contacts, filter } = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
+  function handleDelete(id) {
+    dispatch(deleteContact(id));
+  }
+  function filteredContacts() {
+    return contacts.filter(el =>
+      el.name.toLowerCase().includes(filter.toLowerCase())
     );
   }
-}
+  return (
+    <ElementDiv>
+      <ElementUl>
+        {filteredContacts().map(el => (
+          <ElementsLi key={crypto.randomUUID()}>
+            <p>
+              {el.name}: {el.number}
+            </p>
+            <DeleteBtn
+              onClick={() => {
+                handleDelete(el.id);
+              }}
+              type="button"
+            >
+              DELETE
+            </DeleteBtn>
+          </ElementsLi>
+        ))}
+      </ElementUl>
+    </ElementDiv>
+  );
+};
