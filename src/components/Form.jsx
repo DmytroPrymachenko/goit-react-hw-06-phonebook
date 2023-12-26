@@ -10,12 +10,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { addContact } from 'store/contactsSlise';
+import { selectContacts } from 'store/selector';
 
 export const Form = () => {
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
 
-  const { contacts } = useSelector(state => state.contacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const onChangeState = e => {
@@ -29,7 +30,9 @@ export const Form = () => {
 
   const onSubmitForm = e => {
     e.preventDefault();
-    let isExists = contacts.some(el => el.name === name);
+    let isExists = contacts.some(
+      el => el.name.toLowerCase() === name.toLowerCase()
+    );
 
     const newContact = {
       id: nanoid(),

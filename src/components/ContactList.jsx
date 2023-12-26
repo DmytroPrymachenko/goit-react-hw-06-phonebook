@@ -7,9 +7,11 @@ import {
 import { ElementsLi } from './StylesJSX/ElementStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'store/contactsSlise';
+import { selectContacts, selectFilter } from 'store/selector';
 
-export const FormElementList = () => {
-  const { contacts, filter } = useSelector(state => state.contacts);
+export const ContactList = () => {
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
   function handleDelete(id) {
     dispatch(deleteContact(id));
@@ -23,7 +25,7 @@ export const FormElementList = () => {
     <ElementDiv>
       <ElementUl>
         {filteredContacts().map(el => (
-          <ElementsLi key={crypto.randomUUID()}>
+          <ElementsLi key={el.id}>
             <p>
               {el.name}: {el.number}
             </p>

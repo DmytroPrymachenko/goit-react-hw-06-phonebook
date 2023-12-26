@@ -1,5 +1,5 @@
 import { Form } from '../Form';
-import { FormElementList } from '../FormElementList';
+import { ContactList } from '../ContactList';
 import { FormDiv, FormElementDiv } from '../StylesJSX/FormElementListStyles';
 import Search from '../Search';
 
@@ -18,7 +18,7 @@ export const App = () => {
       <FormElementDiv>
         <Form />
         <Search />
-        <FormElementList />
+        <ContactList />
       </FormElementDiv>
     </FormDiv>
   );
